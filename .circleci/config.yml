@@ -20,7 +20,7 @@ jobs:
   deploy:
     working_directory: ~/dashboard
     docker:
-      - image: circleci/node:10-browsers
+      - image: google/cloud-sdk
     steps:
       - run: npm run deploy
 workflows:
