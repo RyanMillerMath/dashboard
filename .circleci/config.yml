@@ -21,6 +21,13 @@ jobs:
       - image: circleci/node:10-browsers
     steps:
       - checkout
+      - restore_cache:
+          key: dashboard-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - save_cache:
+          key: dashboard-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - "node_modules"
       - run: npm run build
   deploy:
     working_directory: ~/dashboard
