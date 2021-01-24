@@ -1,0 +1,13 @@
+.gcloudignore
+.git
+.gitignore
+node_modules/
+webpack.config.js
+src/
+tsconfig.json
+readme.md
+ssl/
+tslint.json
+LICENSE
+.editorconfig
+.dockerignore
