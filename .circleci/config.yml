@@ -34,7 +34,6 @@ jobs:
             gcloud auth activate-service-account --key-file=/tmp/sa_key.json
             rm /tmp/sa_key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud --quiet config set compute/region ${GOOGLE_COMPUTE_REGION}
       - deploy:
           command: gcloud app deploy
 workflows:
