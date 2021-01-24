@@ -18,7 +18,7 @@ jobs:
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
   install-google:
-    executor: gcp-cli/google
+    executor: gcp-cli/default
     steps:
       - gcp-cli/install
   deploy:
@@ -37,7 +37,7 @@ workflows:
           - build
       - gcp-cli/install_and_initialize_cli:
           name: install_initialize-google
-          executor: gcp-cli/google
+          executor: gcp-cli/default
           context: orb-publishing
           requires:
             - install-google
