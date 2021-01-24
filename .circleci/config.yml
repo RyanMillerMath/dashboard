@@ -35,7 +35,8 @@ jobs:
             gcloud auth activate-service-account --key-file=/tmp/sa_key.json
             rm /tmp/sa_key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-      - deploy: npm run deploy
+      - deploy:
+        command: npm run deploy
 workflows:
   version: 2
   test_and_deploy:
