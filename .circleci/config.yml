@@ -1,4 +1,6 @@
 version: 2
+orbs:
+  gcp-cli: circleci/gcp-cli@2.1.0
 jobs:
   build:
     working_directory: ~/dashboard
