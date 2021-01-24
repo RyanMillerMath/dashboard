@@ -1,6 +1,4 @@
 version: 2
-orbs:
-  gcp-cli: circleci/gcp-cli@2.1.0
 jobs:
   build:
     working_directory: ~/dashboard
@@ -17,30 +15,26 @@ jobs:
             - "node_modules"
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
-  install-google:
-    executor: gcp-cli/default
-    steps:
-      - gcp-cli/install
   deploy:
     working_directory: ~/dashboard
     docker:
       - image: google/cloud-sdk
     steps:
-      - run: npm run deploy
+      - checkout
+      - run:
+          command: ./app.yaml.sh > ./app.yaml
+      - run:
+          command: |
+            echo $GCLOUD_KEY | base64 --decode | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GCLOUD_PROJECT}
+            gcloud --quiet config set compute/zone ${GCLOUD_ZONE}
+      - deploy:
+          command: gcloud app deploy app.yaml
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
-      - install-google:
-        requires:
-          - build
-      - gcp-cli/install_and_initialize_cli:
-          name: install_initialize-google
-          executor: gcp-cli/default
-          context: orb-publishing
-          requires:
-            - install-google
       - deploy:
         requires:
-          - install_initialize-google
+          - build
