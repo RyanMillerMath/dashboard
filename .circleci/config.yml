@@ -36,7 +36,7 @@ jobs:
             rm /tmp/sa_key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
       - deploy:
-        command: npm run deploy
+          command: npm run deploy
 workflows:
   version: 2
   test_and_deploy:
