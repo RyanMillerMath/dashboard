@@ -23,9 +23,9 @@ jobs:
     steps:
       - checkout
       - run:
-          command:
+          command: |
             echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
-            gcloud auth activate-service-account dashboard-302701@appspot.gserviceaccount.com --key-file=/tmp/sa_key.json
+            gcloud auth activate-service-account --key-file=/tmp/sa_key.json
             rm /tmp/sa_key.json
             gcloud --quiet config set project ${GCLOUD_PROJECT_ID}
             gcloud --quiet config set compute/region ${GOOGLE_COMPUTE_REGION}
