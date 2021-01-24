@@ -18,8 +18,8 @@ jobs:
   deploy:
     working_directory: ~/dashboard
     docker:
-      - image: google/cloud-sdk
       - image: circleci/node:10-browsers
+      - image: google/cloud-sdk
     steps:
       - checkout
       - restore_cache:
