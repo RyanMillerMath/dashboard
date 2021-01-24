@@ -25,9 +25,9 @@ jobs:
           command: ./app.yaml.sh > ./app.yaml
       - run:
           command: |
-            echo $GCLOUD_KEY | base64 --decode | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GCLOUD_PROJECT}
-            gcloud --quiet config set compute/zone ${GCLOUD_ZONE}
+            echo $GCLOUD_SERVICE_KEY | base64 --decode | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GCLOUD_PROJECT_ID}
+            gcloud --quiet config set compute/region ${GOOGLE_COMPUTE_REGION}
       - deploy:
           command: gcloud app deploy app.yaml
 workflows:
