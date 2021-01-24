@@ -38,7 +38,7 @@ workflows:
       - gcp-cli/install_and_initialize_cli:
           name: install_initialize-google
           executor: gcp-cli/google
-          context: orb-publishing:
+          context: orb-publishing
           requires:
             - install-google
       - deploy:
