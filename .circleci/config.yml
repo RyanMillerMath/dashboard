@@ -15,11 +15,10 @@ jobs:
             - "node_modules"
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
-  deploy:
+  build:
     working_directory: ~/dashboard
     docker:
       - image: circleci/node:10-browsers
-      - image: google/cloud-sdk
     steps:
       - checkout
       - restore_cache:
@@ -29,6 +28,17 @@ jobs:
           key: dashboard-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
+      - run: npm run build
+      - persist_to_workspace:
+          root: dist
+  deploy:
+    working_directory: ~/dashboard
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - attach_workspace:
+          at: dist
+      - checkout
       - run:
           command: |
             echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
@@ -36,12 +46,15 @@ jobs:
             rm /tmp/sa_key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
       - deploy:
-          command: npm run deploy
+          command: gcloud app deploy
 workflows:
   version: 2
-  test_and_deploy:
+  test_build_and_deploy:
     jobs:
       - test
-      - deploy:
+      - build:
           requires:
             - test
+      - deploy:
+          requires:
+            - build
