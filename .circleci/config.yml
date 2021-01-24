@@ -1,6 +1,6 @@
 version: 2.1
 workflows:
-  test_workflow:
+  node-tests:
     jobs:
         # The test job
         test:
