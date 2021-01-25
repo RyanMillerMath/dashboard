@@ -1,0 +1,55 @@
+version: 2
+jobs:
+  test:
+    working_directory: ~/dashboard
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+  build:
+    working_directory: ~/dashboard
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - persist_to_workspace:
+          root: ./
+          paths: dist
+  deploy:
+    working_directory: ~/dashboard
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          command: |
+            echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
+            gcloud auth activate-service-account --key-file=/tmp/sa_key.json
+            rm /tmp/sa_key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+      - deploy:
+          command: gcloud app deploy
+workflows:
+  version: 2
+  test_build_and_deploy:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
