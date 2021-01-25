@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "deploy": "npm run build && gcloud app deploy"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
