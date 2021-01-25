@@ -37,9 +37,9 @@ jobs:
     docker:
       - image: google/cloud-sdk
     steps:
+      - checkout
       - attach_workspace:
           at: dist
-      - checkout
       - run:
           command: |
             echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
