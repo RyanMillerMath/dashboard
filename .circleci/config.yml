@@ -36,8 +36,6 @@ jobs:
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
       - deploy:
           command: gcloud app deploy
-      - run: cd dist && ls -a
-      - run: cd ../.. && ls -a
 workflows:
   version: 2
   test_build_and_deploy:
@@ -46,6 +44,12 @@ workflows:
       - build:
           requires:
             - test
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only: master
