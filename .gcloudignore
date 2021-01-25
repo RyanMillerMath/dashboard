@@ -4,10 +4,12 @@
 node_modules/
 webpack.config.js
 src/
+e2e/
 tsconfig.json
-readme.md
-ssl/
+tsconfig.app.json
+tsconfig.spec.json
+README.md
 tslint.json
-LICENSE
 .editorconfig
 .dockerignore
+karma.conf.js
