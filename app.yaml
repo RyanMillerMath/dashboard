@@ -5,3 +5,4 @@ handlers:
   upload: dist/dashboard/index.html
 - url: /
   static_dir: dist/dashboard
+application_readable: true
