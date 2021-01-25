@@ -6,13 +6,7 @@ jobs:
       - image: circleci/node:10-browsers
     steps:
       - checkout
-      - restore_cache:
-          key: dashboard-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm install
-      - save_cache:
-          key: dashboard-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
-            - "node_modules"
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
   build:
@@ -21,8 +15,10 @@ jobs:
       - image: circleci/node:10-browsers
     steps:
       - checkout
+      - run: ls -a
       - run: npm install
       - run: npm run build
+      - run: ls -a
       - persist_to_workspace:
           root: ./
           paths: dist
@@ -32,8 +28,10 @@ jobs:
       - image: google/cloud-sdk
     steps:
       - checkout
+      - run: ls -a
       - attach_workspace:
           at: ./
+      - run: ls -a
       - run:
           command: |
             echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
