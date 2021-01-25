@@ -15,10 +15,8 @@ jobs:
       - image: circleci/node:10-browsers
     steps:
       - checkout
-      - run: ls -a
       - run: npm install
       - run: npm run build
-      - run: ls -a
       - persist_to_workspace:
           root: ./
           paths: dist
@@ -28,18 +26,18 @@ jobs:
       - image: google/cloud-sdk
     steps:
       - checkout
-      - run: ls -a
       - attach_workspace:
           at: ./
-      - run: ls -a
       - run:
           command: |
             echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
             gcloud auth activate-service-account --key-file=/tmp/sa_key.json
             rm /tmp/sa_key.json
             gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+      - run: ls -a
       - deploy:
           command: gcloud app deploy
+      - run: ls -a
 workflows:
   version: 2
   test_build_and_deploy:
