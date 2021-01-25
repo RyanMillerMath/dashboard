@@ -1,7 +1,7 @@
 runtime: nodejs14
 handlers:
-- url: /
-  static_files: dist/dashboard/index.html
-  upload: dist/dashboard/index.html
-- url: /
-  static_dir: dist/dashboard
+  - url: /
+    static_files: dist/dashboard/index.html
+    upload: dist/dashboard/index.html
+  - url: /
+    static_dir: dist/dashboard
