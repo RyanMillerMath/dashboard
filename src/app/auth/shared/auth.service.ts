@@ -75,7 +75,6 @@ export class AuthService {
       return;
     }
 
-    await this.router.navigate(['auth/verify-email']);
     await this.firebaseAuth.sendSignInLinkToEmail(email, actionCodeSettings)
       .then(async () => {
         localStorage.setItem('user', JSON.stringify(this.user));
@@ -137,7 +136,6 @@ export class AuthService {
   }
 
   async sendPasswordResetEmail(passwordResetEmail: string) {
-    await this.router.navigate(['auth/forgot-password']);
     return this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail, actionCodeSettings)
       .then()
       .catch(err => {
