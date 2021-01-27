@@ -25,9 +25,11 @@ export class AuthService {
     this.firebaseAuth.authState.subscribe((user: User|null) => {
       // I use local storage here, but if I were working with an actual server with an auth set up, I'd use cookies
       if (user) {
+        console.log('user already logged in');
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
       } else {
+        console.log('no user logged in');
         localStorage.removeItem('user');
       }
     });
@@ -43,6 +45,7 @@ export class AuthService {
         }
 
         await this.sendEmailVerification(user);
+        console.log('email verification sent');
       })
       .catch(err => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
@@ -76,7 +79,8 @@ export class AuthService {
     }
 
     await this.firebaseAuth.sendSignInLinkToEmail(email, actionCodeSettings)
-      .then(async () => {
+      .then(() => {
+        console.log('sign in link email sent');
         localStorage.setItem('user', JSON.stringify(this.user));
       })
       .catch(err => {
@@ -108,6 +112,7 @@ export class AuthService {
         if (!userCredential) {
           return;
         }
+        console.log('signed in');
         
         this.router.navigate(['/vehicle-stats']);
       })
@@ -137,7 +142,9 @@ export class AuthService {
 
   async sendPasswordResetEmail(passwordResetEmail: string) {
     return this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail, actionCodeSettings)
-      .then()
+      .then(() => {
+        console.log('password reset email sent');
+      })
       .catch(err => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
         const errorCode = err.code;
@@ -167,6 +174,7 @@ export class AuthService {
   async logout() {
     await this.firebaseAuth.signOut()
       .then(() => {
+        console.log('logged out');
         localStorage.removeItem('user');
         this.router.navigate(['auth/login']);
       })
@@ -179,10 +187,10 @@ export class AuthService {
   get isLoggedIn(): boolean {
     let user = localStorage.getItem('user');
 
-    if (user) {
-      user = JSON.parse(user);
+    if (!user) {
+      return false;
     }
     
-    return user !== null;
+    return JSON.parse(user).emailVerified !== false;
   }
 }
