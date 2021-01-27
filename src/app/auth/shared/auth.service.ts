@@ -157,8 +157,9 @@ export class AuthService {
 
   async sendPasswordResetEmail(passwordResetEmail: string) {
     return this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail, actionCodeSettings)
-      .then(() => {
+      .then(async () => {
         console.log('password reset email sent');
+        return this.router.navigate(['password-reset-sent']);
       })
       .catch(err => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
