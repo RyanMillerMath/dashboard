@@ -10,13 +10,17 @@ import { VehicleMakeInsightsComponent } from './vehicle-make-insights/vehicle-ma
 import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent, children: [
-    { path: 'login', component: LoginComponent},
-    { path: 'register', component: RegisterComponent },
-    { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'verify-email', component: VerifyEmailComponent }
-  ] },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent,
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'verify-email', component: VerifyEmailComponent }
+    ]
+  },
   { path: 'vehicle-stats', component: VehicleStatsComponent },
   { path: 'make-insights', component: VehicleMakeInsightsComponent },
   { path: 'tire-analytics', component: TireAnalyticsComponent }

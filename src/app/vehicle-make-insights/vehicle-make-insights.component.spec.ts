@@ -8,9 +8,8 @@ describe('VehicleMakeInsightsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VehicleMakeInsightsComponent ]
-    })
-    .compileComponents();
+      declarations: [VehicleMakeInsightsComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

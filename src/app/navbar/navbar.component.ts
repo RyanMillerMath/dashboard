@@ -6,8 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {}
 }
