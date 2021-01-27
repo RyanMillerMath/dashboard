@@ -75,7 +75,7 @@ export class AuthService {
       return;
     }
 
-    await this.router.navigate(['home/verify-email']);
+    await this.router.navigate(['auth/verify-email']);
     await this.firebaseAuth.sendSignInLinkToEmail(email, actionCodeSettings)
       .then(async () => {
         localStorage.setItem('user', JSON.stringify(this.user));
@@ -137,7 +137,7 @@ export class AuthService {
   }
 
   async sendPasswordResetEmail(passwordResetEmail: string) {
-    await this.router.navigate(['home/forgot-password']);
+    await this.router.navigate(['auth/forgot-password']);
     return this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail, actionCodeSettings)
       .then()
       .catch(err => {
@@ -170,7 +170,7 @@ export class AuthService {
     await this.firebaseAuth.signOut()
       .then(() => {
         localStorage.removeItem('user');
-        this.router.navigate(['home/login']);
+        this.router.navigate(['auth/login']);
       })
       .catch(err => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
