@@ -24,6 +24,7 @@ import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.componen
 
 // I'd normally keep the api key in a non-committed file of secrets/env vars for security,
 // but this account is just for this project and will be deactivated afterwards.
+// I'd also obviously store prod/dev copies separately in environment.prod.ts & environment.ts.
 const firebaseConfig = {
   apiKey: 'AIzaSyDcQT2PBqZ5JclC04JjnJJoGtNjwqf0YbM',
   authDomain: 'dashboard-302701.firebaseapp.com',
