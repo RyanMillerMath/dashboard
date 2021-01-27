@@ -38,14 +38,24 @@ export class AuthService {
   async signup(email: string, password: string) {
     await this.firebaseAuth.createUserWithEmailAndPassword(email, password)
       .then(async (userCredential: UserCredential) => {
-        const user = userCredential.user ? userCredential.user : null;
-
-        if (!user) {
+        if (!userCredential) {
+          console.log('no signup user credential');
           return;
         }
 
-        await this.sendEmailVerification(user);
-        console.log('email verification sent');
+        const user = userCredential.user ? userCredential.user : null;
+
+        if (!user) {
+          console.log('no signup user');
+          return;
+        }
+
+        await this.sendEmailVerification(user)
+          .catch(err => {
+            alert(`An error happened trying to send the verification email - ${err.message}`)
+          });
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('email verification sent & user set');
       })
       .catch(err => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
@@ -72,16 +82,20 @@ export class AuthService {
   }
 
   async sendEmailVerification(user: User) {
+    if (!user) {
+      throw 'no user to verify';
+    }
+
     const email = user.email ? user.email : '';
 
     if (!email) {
-      return;
+      throw 'no user email to send verification email to';
     }
 
     await this.firebaseAuth.sendSignInLinkToEmail(email, actionCodeSettings)
-      .then(() => {
+      .then(async () => {
         console.log('sign in link email sent');
-        localStorage.setItem('user', JSON.stringify(this.user));
+        return this.router.navigate(['auth/verify-email']);
       })
       .catch(err => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
@@ -110,6 +124,7 @@ export class AuthService {
     await this.firebaseAuth.signInWithEmailAndPassword(email, password)
       .then((userCredential: UserCredential) => {
         if (!userCredential) {
+          console.log('no login user credential');
           return;
         }
         console.log('signed in');
