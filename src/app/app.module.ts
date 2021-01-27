@@ -7,20 +7,21 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-// app-level/shared components components
+// app-wide components components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './navbar/navbar.component';
-
-// page & children components
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './home/login/login.component';
-import { RegisterComponent } from './home/register/register.component';
-import { ForgotPasswordComponent } from './home/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './home/verify-email/verify-email.component';
+
+// page-level components
 import { VehicleStatsComponent } from './vehicle-stats/vehicle-stats.component';
 import { VehicleMakeInsightsComponent } from './vehicle-make-insights/vehicle-make-insights.component';
 import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.component';
+
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 
 // I'd normally keep the api key in a non-committed file of secrets/env vars for security,
 // but this account is just for this project and will be deactivated afterwards.
