@@ -21,6 +21,7 @@ import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.componen
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { PasswordResetSentComponent } from './password-reset-sent/password-reset-sent.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 
 // I'd normally keep the api key in a non-committed file of secrets/env vars for security,
@@ -47,6 +48,7 @@ const firebaseConfig = {
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
+    PasswordResetSentComponent,
     VerifyEmailComponent
   ],
   imports: [

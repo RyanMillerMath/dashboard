@@ -9,6 +9,7 @@ import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.componen
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { PasswordResetSentComponent } from './password-reset-sent/password-reset-sent.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'password-reset-sent', component: PasswordResetSentComponent },
       { path: 'verify-email', component: VerifyEmailComponent }
     ]
   },
