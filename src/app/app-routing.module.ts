@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
 import { VehicleStatsComponent } from './vehicle-stats/vehicle-stats.component';
 import { VehicleMakeInsightsComponent } from './vehicle-make-insights/vehicle-make-insights.component';
 import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.component';
