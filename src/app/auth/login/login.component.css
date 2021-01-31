@@ -1,0 +1,8 @@
+.account-signup {
+  display: flex;
+  justify-content: center;
+}
+
+.account-link {
+  padding-left: 10px;
+}
