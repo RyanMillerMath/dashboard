@@ -1,4 +1,16 @@
-<form class="" id="loginForm" method="post">
-  <!-- email/password inputs -->
-  <a class="" routerLink="/auth/forgot-password" tabindex="0">Forgot password?</a>
+<form class="form" id="loginForm" method="post">
+  <div class="form__input-container">
+    <label class="form__label">Email</label>
+    <input aria-label="Email" aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75" name="username" type="text" class="form__text-input" value="">
+  </div>
+  <div class="form__input-container">
+    <label class="form__label">Password</label>
+    <input aria-label="Password" aria-required="true" autocapitalize="off" autocorrect="off" name="password" type="password" class="form__text-input" value="">
+  </div>
+  <div class="form__input-container">
+    <button class="button button--login" disabled="" type="submit">
+      Log In
+    </button>
+  </div>
+  <a class="account-signup" routerLink="/auth/forgot-password" tabindex="0">Forgot password?</a>
 </form>
