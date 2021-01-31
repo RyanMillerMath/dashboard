@@ -19,6 +19,7 @@ import { VehicleMakeInsightsComponent } from './vehicle-make-insights/vehicle-ma
 import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.component';
 
 import { LoginComponent } from './auth/login/login.component';
+import { LoginFormComponent } from './auth/login/login-form/login-form.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { PasswordResetSentComponent } from './password-reset-sent/password-reset-sent.component';
@@ -49,7 +50,8 @@ const firebaseConfig = {
     RegisterComponent,
     ForgotPasswordComponent,
     PasswordResetSentComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
