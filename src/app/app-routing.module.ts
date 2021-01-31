@@ -13,8 +13,7 @@ import { PasswordResetSentComponent } from './password-reset-sent/password-reset
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth', redirectTo: 'auth/login' },
   {
     path: 'auth',
