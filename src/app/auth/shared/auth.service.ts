@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Router } from  "@angular/router";
-import { AngularFireAuth } from  "@angular/fire/auth";
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 
 type UserCredential = firebase.auth.UserCredential;
@@ -22,7 +22,7 @@ export class AuthService {
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router) {
     this.user = null;
-    this.firebaseAuth.authState.subscribe((user: User|null) => {
+    this.firebaseAuth.authState.subscribe((user: User | null) => {
       // I use local storage here, but if I were working with an actual server with an auth set up, I'd use cookies
       if (user) {
         console.log('user already logged in');
@@ -36,7 +36,8 @@ export class AuthService {
   }
 
   async signup(email: string, password: string) {
-    await this.firebaseAuth.createUserWithEmailAndPassword(email, password)
+    await this.firebaseAuth
+      .createUserWithEmailAndPassword(email, password)
       .then(async (userCredential: UserCredential) => {
         if (!userCredential) {
           console.log('no signup user credential');
@@ -50,14 +51,13 @@ export class AuthService {
           return;
         }
 
-        await this.sendEmailVerification(user)
-          .catch(err => {
-            alert(`An error happened trying to send the verification email - ${err.message}`)
-          });
+        await this.sendEmailVerification(user).catch((err) => {
+          alert(`An error happened trying to send the verification email - ${err.message}`);
+        });
         localStorage.setItem('user', JSON.stringify(user));
         console.log('email verification sent & user set');
       })
-      .catch(err => {
+      .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
         const errorCode = err.code;
         const errorMessage = err.message;
@@ -92,12 +92,13 @@ export class AuthService {
       throw 'no user email to send verification email to';
     }
 
-    await this.firebaseAuth.sendSignInLinkToEmail(email, actionCodeSettings)
+    await this.firebaseAuth
+      .sendSignInLinkToEmail(email, actionCodeSettings)
       .then(async () => {
         console.log('sign in link email sent');
         return this.router.navigate(['auth/verify-email']);
       })
-      .catch(err => {
+      .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
         const errorCode = err.code;
         const errorMessage = err.message;
@@ -121,17 +122,18 @@ export class AuthService {
   }
 
   async login(email: string, password: string) {
-    await this.firebaseAuth.signInWithEmailAndPassword(email, password)
+    await this.firebaseAuth
+      .signInWithEmailAndPassword(email, password)
       .then((userCredential: UserCredential) => {
         if (!userCredential) {
           console.log('no login user credential');
           return;
         }
         console.log('signed in');
-        
+
         this.router.navigate(['/vehicle-stats']);
       })
-      .catch(err => {
+      .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
         const errorCode = err.code;
         const errorMessage = err.message;
@@ -156,12 +158,13 @@ export class AuthService {
   }
 
   async sendPasswordResetEmail(passwordResetEmail: string) {
-    return this.firebaseAuth.sendPasswordResetEmail(passwordResetEmail, actionCodeSettings)
+    return this.firebaseAuth
+      .sendPasswordResetEmail(passwordResetEmail, actionCodeSettings)
       .then(async () => {
         console.log('password reset email sent');
         return this.router.navigate(['password-reset-sent']);
       })
-      .catch(err => {
+      .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
         const errorCode = err.code;
         const errorMessage = err.message;
@@ -188,13 +191,14 @@ export class AuthService {
   }
 
   async logout() {
-    await this.firebaseAuth.signOut()
+    await this.firebaseAuth
+      .signOut()
       .then(() => {
         console.log('logged out');
         localStorage.removeItem('user');
         this.router.navigate(['auth/login']);
       })
-      .catch(err => {
+      .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
         alert(`An error happened while logging out - ${err.message}`);
       });
@@ -206,7 +210,7 @@ export class AuthService {
     if (!user) {
       return false;
     }
-    
+
     return JSON.parse(user).emailVerified !== false;
   }
 }
