@@ -7,8 +7,8 @@
     "build": "ng build --prod",
     "build:dev": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "lint:fix": "prettier --write .",
+    "lint": "prettier -c .",
+    "lint:fix": "prettier -w .",
     "e2e": "ng e2e"
   },
   "husky": {
