@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 // add ons
 import { AngularFireModule } from '@angular/fire';
@@ -16,8 +17,8 @@ import { VehicleMakeInsightsComponent } from './vehicle-make-insights/vehicle-ma
 import { TireAnalyticsComponent } from './tire-analytics/tire-analytics.component';
 
 import { LoginComponent } from './auth/login/login.component';
-import { LoginFormComponent } from './auth/login/login-form/login-form.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { LoginRegisterFormComponent } from './auth/shared/login-register-form/login-register-form.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { PasswordResetSentComponent } from './password-reset-sent/password-reset-sent.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
@@ -44,13 +45,14 @@ const firebaseConfig = {
     TireAnalyticsComponent,
     LoginComponent,
     RegisterComponent,
+    LoginRegisterFormComponent,
     ForgotPasswordComponent,
     PasswordResetSentComponent,
-    VerifyEmailComponent,
-    LoginFormComponent
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule
