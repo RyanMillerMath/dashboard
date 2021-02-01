@@ -28,11 +28,16 @@ export class AuthService {
         console.log('user already logged in');
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
+        this.goToRoute('/vehicle-stats');
       } else {
         console.log('no user logged in');
         localStorage.removeItem('user');
       }
     });
+  }
+
+  goToRoute(route: string): Promise<boolean> {
+    return this.router.navigate([route]);
   }
 
   async signup(email: string, password: string) {
@@ -96,7 +101,7 @@ export class AuthService {
       .sendSignInLinkToEmail(email, actionCodeSettings)
       .then(async () => {
         console.log('sign in link email sent');
-        return this.router.navigate(['auth/verify-email']);
+        return this.goToRoute('/auth/verify-email');
       })
       .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
@@ -131,7 +136,7 @@ export class AuthService {
         }
         console.log('signed in');
 
-        this.router.navigate(['/vehicle-stats']);
+        this.goToRoute('/vehicle-stats');
       })
       .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
@@ -196,7 +201,7 @@ export class AuthService {
       .then(() => {
         console.log('logged out');
         localStorage.removeItem('user');
-        this.router.navigate(['auth/login']);
+        this.goToRoute('/auth/login');
       })
       .catch((err) => {
         // I'd normally handle with some stateful variables to trigger an error messaging component
