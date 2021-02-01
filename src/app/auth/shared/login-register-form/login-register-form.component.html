@@ -1,14 +1,14 @@
-<form class="form" id="loginForm" method="post">
+<form class="form" #loginRegisterForm="ngForm">
   <div class="form__input-container">
     <label class="form__label">Email</label>
-    <input aria-label="Email" aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75" name="username" type="text" class="form__text-input" value="">
+    <input class="form__text-input" [(ngModel)]="user.email" aria-label="Email" aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75" name="username" type="text">
   </div>
   <div class="form__input-container">
     <label class="form__label">Password</label>
-    <input aria-label="Password" aria-required="true" autocapitalize="off" autocorrect="off" name="password" type="password" class="form__text-input" value="">
+    <input class="form__text-input" [(ngModel)]="user.password" aria-label="Password" aria-required="true" autocapitalize="off" autocorrect="off" name="password" type="password">
   </div>
   <div class="form__input-container">
-    <button class="button button--login" disabled="" type="submit">
+    <button class="button" [disabled]="!loginRegisterForm.valid" (click)="handleClick(user)">
       Log In
     </button>
   </div>

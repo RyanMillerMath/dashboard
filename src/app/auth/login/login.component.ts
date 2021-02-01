@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/auth.service';
+import { User } from '../shared/User';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [AuthService]
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  // container component housing auth service & pass off to other auth components
+  handleLogin(user: User): void {
+    this.authService.login(user.email, user.password);
+  }
 }
