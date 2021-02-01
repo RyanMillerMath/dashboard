@@ -28,7 +28,6 @@ export class AuthService {
         console.log('user already logged in');
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
-        this.goToRoute('/vehicle-stats');
       } else {
         console.log('no user logged in');
         localStorage.removeItem('user');
